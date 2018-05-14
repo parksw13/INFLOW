@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="attended_bean">
+	
+	<!--출석 쿼리문 -->
+	<update id="attend" >
+		UPDATE attended SET attended_state=1 WHERE student_id=#{student_id} 
+	</update>
+	
+	<!--지각 쿼리문 -->
+	<update id="tardy" >
+		UPDATE attended SET attended_state=2 WHERE student_id=#{student_id} 
+	</update>
+	
+	<!-- 조퇴신청 쿼리문  -->
+	<update id="early" >
+		UPDATE attended SET attended_state=3 WHERE student_id=#{student_id} <!-- and teacher_id=#{teacher_id} -->
+	</update>
+	
+	<!--조퇴신청 승인을 위한 쿼리문 -->
+	<update id="early_signup" >
+		UPDATE attended SET attended_state=4 WHERE student_id=#{student_id} 
+	</update>
+
+</mapper>

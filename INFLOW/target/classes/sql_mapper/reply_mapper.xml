@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace의 속성값은 bean 클래스 이름을 쓴다.  -->
+<mapper namespace="reply_Bean" >	
+	<!-- 댓글 달기 쿼리문 -->
+	<insert id="reply" parameterType="replybean">
+		INSERT INTO reply VALUES(reply_num.nextval, #{b_num}, 
+		#{reply_contents}, #{reply_writer, jdbcType=VARCHAR}, sysdate)
+	</insert>
+	
+	<!--글목록 쿼리문  -->
+	<select id="replylist" parameterType="replybean" resultType="replybean">
+		SELECT * FROM reply where b_num=#{qna_num} ORDER BY reply_num
+	</select>
+	
+	<!--글 삭제하기 쿼리문  -->
+	<update id="reply_delete"  >
+		DELETE FROM reply WHERE reply_num=#{reply_num}
+	</update>
+	
+</mapper>

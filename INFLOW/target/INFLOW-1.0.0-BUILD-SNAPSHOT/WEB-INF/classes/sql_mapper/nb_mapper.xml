@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace의 속성값은 bean 클래스 이름을 쓴다.  -->
+<mapper namespace="nb_bean">
+	<!--글쓰기 쿼리문  -->
+	<insert id="write" parameterType="nbbean">
+		INSERT INTO notice_board VALUES(nb_num.nextval, #{nb_writer},
+		#{nb_title}, #{nb_contents}, sysdate, 0)
+	</insert>
+	
+	<!--글목록 쿼리문  -->
+	<select id="boardlist" parameterType="nbbean" resultType="nbbean">
+		SELECT * FROM notice_board ORDER BY nb_num
+	</select>
+	
+	<!--조회수 증가 쿼리문  -->
+	<update id="increaseViewcnt">
+		UPDATE notice_board SET nb_count=nb_count+1 WHERE nb_num=#{nb_num}
+	</update>
+	
+	<!--글 상세보기 쿼리문  -->
+	<select id="view" resultType="nbbean">
+		SELECT * FROM notice_board WHERE nb_num=#{nb_num}
+	</select>
+	
+	<!--글 수정하기 쿼리문  -->
+	<update id="modify" >
+		UPDATE notice_board SET nb_writer=#{nb_writer}, nb_title=#{nb_title}, nb_contents=#{nb_contents}
+		WHERE nb_num=#{nb_num}
+	</update>
+	
+	<!--글 삭제하기 쿼리문  -->
+	<update id="delete"  >
+		DELETE FROM notice_board WHERE nb_num=#{nb_num}
+	</update>	
+
+</mapper>

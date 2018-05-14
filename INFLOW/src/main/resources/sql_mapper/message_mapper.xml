@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace의 속성값은 bean 클래스 이름을 쓴다.  -->
+<mapper namespace="message_Bean">
+	<!--글쓰기 쿼리문  -->
+	<insert id="write" parameterType="mbean">
+		INSERT INTO message VALUES(m_num.nextval, #{send_id},
+		#{receive_id}, #{m_contents})
+	</insert>
+	
+	<!--글목록 쿼리문  -->
+	<select id="boardlist" parameterType="mbean" resultType="mbean">
+		SELECT * FROM message ORDER BY m_num desc
+	</select>
+
+	<!--글 상세보기 쿼리문  -->
+	<select id="view" resultType="mbean">
+		SELECT * FROM message WHERE m_num=#{m_num}
+	</select>
+	
+	<!--글 삭제하기 쿼리문  -->
+	<update id="delete"  >
+		DELETE FROM message WHERE m_num=#{m_num}
+	</update>	
+
+</mapper>

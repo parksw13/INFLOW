@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace의 속성값은 bean 클래스 이름을 쓴다.  -->
+<mapper namespace="sb_Bean">
+   <!--글쓰기 쿼리문  -->
+   <insert id="write" parameterType="sbbean">
+      INSERT INTO study_board(sb_num, sb_writer, sb_title, sb_contents, sb_date, sb_count, sb_re_seq, sb_re_ref)
+      VALUES(sb_num.nextval, #{sb_writer}, #{sb_title}, #{sb_contents}, sysdate, 0, null, sb_re_lev.nextval)
+   </insert>
+   
+   <!--글목록 쿼리문  -->
+   <select id="boardlist" parameterType="sbbean" resultType="sbbean">
+      SELECT * FROM study_board where sb_re_ref in sb_num or sb_re_ref is not null order by sb_re_ref,sb_re_seq desc
+   </select>
+   
+   <!--조회수 증가 쿼리문  -->
+   <update id="increaseViewcnt">
+      UPDATE study_board SET sb_count=sb_count+1 WHERE sb_num=#{sb_num}
+   </update>
+   
+   <!--글 상세보기 쿼리문  -->
+   <select id="view" resultType="sbbean">
+      SELECT * FROM study_board WHERE sb_num=#{sb_num}
+   </select>
+   
+   <!--글 수정하기 쿼리문  -->
+   <update id="modify" >
+      UPDATE study_board SET sb_writer=#{sb_writer}, sb_title=#{sb_title}, sb_contents=#{sb_contents}
+      WHERE sb_num=#{sb_num}
+   </update>
+   
+   <!--글 삭제하기 쿼리문  -->
+   <update id="delete"  >
+      DELETE FROM study_board WHERE sb_num=#{sb_num}
+   </update>   
+   
+   <!--답글쓰기 쿼리문  -->
+   <insert id="re_write" parameterType="sbbean">
+      INSERT INTO study_board(sb_num, sb_writer, sb_title, sb_contents, sb_date, sb_count, sb_re_seq, sb_re_ref) 
+      VALUES(sb_num.nextval, #{sb_writer}, #{sb_title}, #{sb_contents}, sysdate, 0, sb_re_seq.nextval, #{sb_num} )
+   </insert>
+   
+
+</mapper>

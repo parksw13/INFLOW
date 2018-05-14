@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace의 속성값은 bean 클래스 이름을 쓴다. -->
+<mapper namespace="users_Bean">
+
+	<!--회원가입 처리를 위한 INSERT 쿼리문 -->
+	<insert id="usersInsert" parameterType="usersbean">
+		INSERT INTO USERS VALUES(
+		#{id}, #{pw}, #{name}, #{addr}, #{num}, #{tel}, #{grade},
+		#{profile_img}, #{email}, #{class_name}
+		)
+	</insert>
+
+	<!-- 아이디 중복 검사 쿼리문 -->
+	<select id="check_id" parameterType="usersbean" resultType="int">
+		SELECT COUNT(*) FROM USERS WHERE ID = #{id}
+	</select>
+
+	<!-- 회원가입 시 이메일 중복 검사 쿼리문 -->
+	<select id="check_email" parameterType="usersbean" resultType="int">
+		SELECT COUNT(*) FROM USERS WHERE EMAIL = #{email}
+	</select>
+
+
+	<!-- 로그인을 위한 SELECT 쿼리문 -->
+	<select id="login" parameterType="usersbean" resultType="usersbean">
+		SELECT *
+		FROM USERS WHERE ID=#{id} and PW=#{pw}
+	</select>
+
+	<!-- 로그인하는 ID&PW를 확인하기 위한 SELECT 쿼리문 -->
+	<select id="loginCheck" parameterType="usersbean" resultType="usersbean">
+		SELECT * FROM USERS WHERE ID=#{id} and PW=#{pw}
+	</select>
+
+	<!-- 회원정보 보기를 위한 쿼리문 -->
+	<select id="view" resultType="usersbean">
+		SELECT * FROM USERS WHERE ID=#{id}
+	</select>
+
+	<!--(수정가능)회원정보 보기를 위한 쿼리문 -->
+	<select id="editview" resultType="usersbean">
+		SELECT * FROM USERS WHERE
+		ID=#{id}
+	</select>
+
+	<!-- 회원정보 수정을 처리하기 위한 쿼리문 -->
+	<update id="edit">
+		UPDATE USERS SET pw=#{pw}, addr=#{addr}, tel=#{tel},
+		profile_img=#{profile_img}, email=#{email} WHERE ID=#{id}
+	</update>
+
+	<!-- //회원프로필사진 수정을 처리하기 위한 쿼리문 -->
+	<update id="profile_edit">
+		UPDATE USERS SET profile_img=#{profile_img} WHERE
+		ID=#{id}
+	</update>
+
+	<!--아이디를 찾기 위한 쿼리문 -->
+	<select id="find_id" parameterType="usersbean" resultType="usersbean">
+		SELECT ID FROM USERS WHERE EMAIL = #{email}
+	</select>
+
+	<!-- 임시비밀번호로 변경? -->
+	<update id="update_pw" parameterType="usersbean">
+		UPDATE USERS SET PW = #{pw}
+		where ID = #{id}
+	</update>
+	
+	<!--회원목록 쿼리문 -->
+	<select id="userslist" parameterType="usersbean" resultType="usersbean">
+		SELECT * FROM USERS ORDER BY ID asc
+	</select>
+
+	<!--회원 삭제하기 쿼리문 -->
+	<update id="users_delete">
+		DELETE FROM USERS WHERE id=#{id}
+	</update>
+
+	<!-- 유저검색 쿼리문 -->
+	<select id="searchList" parameterType="usersbean" resultType="usersbean">
+		SELECT * FROM USERS WHERE upper(id) LIKE upper('%' || #{usersearch} ||
+		'%') ORDER BY id ASC
+	</select>
+
+
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace의 속성 값은 bean 클래스 이름을 써줌. -->
+<mapper namespace="resources_Bean">
+
+	<!-- 제품 등록 쿼리문 -->
+	<insert id="write" parameterType="resourcesbean">
+		INSERT INTO Resources
+		VALUES(Resources_seq.nextval, sysdate, #{division},
+		#{r_name}, #{stock}, #{max_stock}, #{r_file})
+	</insert>
+
+	<!-- 제품 목록 쿼리문 -->
+	<select id="resourcesList" parameterType="resourcesbean"
+		resultType="resourcesbean">
+		SELECT * FROM Resources ORDER BY code desc
+	</select>
+
+	<!--제품 상세보기 쿼리문 -->
+	<select id="view" resultType="resourcesbean">
+		SELECT * FROM Resources WHERE code=#{code}
+	</select>
+
+	<!--제품 수정하기 쿼리문 -->
+	<update id="modify">
+		UPDATE Resources SET stock=#{stock}, max_stock=#{max_stock}
+		WHERE code=#{code}
+	</update>
+
+	<!--제품 삭제하기 쿼리문 -->
+	<update id="delete">
+		DELETE FROM Resources WHERE code=#{code}
+	</update>
+	<!-- 제품 검색하기 쿼리문 -->
+	<select id="searchList" parameterType="resourcesbean"
+		resultType="resourcesbean">
+		SELECT * FROM Resources WHERE upper(r_name) LIKE upper('%'
+		|| #{search} || '%') ORDER BY CODE DESC
+	</select>
+
+	<select id="check_rname" parameterType="resourcesbean"
+		resultType="int">
+		SELECT COUNT(*) FROM Resources WHERE r_name = #{r_name}
+	</select>
+
+
+
+</mapper>

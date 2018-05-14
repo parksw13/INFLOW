@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace의 속성값은 bean 클래스 이름을 쓴다. -->
+<mapper namespace="class_Bean">
+
+	<insert id="class_write" parameterType="classbean">
+		INSERT INTO class
+		VALUES(#{class_name}, #{teacher_name},
+		#{book_name},#{course_name},#{course_startdate},#{course_enddate},0,#{max_student})
+	</insert>
+
+	<!--글목록 쿼리문 -->
+	<select id="class_list" parameterType="classbean" resultType="classbean">
+		SELECT * FROM class ORDER BY class_name
+	</select>
+
+	<select id="class_max" parameterType="classbean" resultType="int">
+		SELECT max_student FROM class where class_name=#{class_name}
+	</select>
+
+	<!--등록된 학생 카운트 -->
+	<select id="class_count" parameterType="usersbean" resultType="int">
+		SELECT count(*) FROM users where class_name=#{class_name} and
+		grade='S'
+	</select>
+
+	<!--글 상세보기 쿼리문 -->
+	<select id="class_view" resultType="classbean">
+		SELECT * FROM class WHERE
+		class_name=#{class_name}
+	</select>
+
+	<!--글 수정하기 쿼리문 -->
+	<update id="class_modify">
+		UPDATE class SET
+		teacher_name=#{teacher_name}, book_name=#{book_name},
+		course_name=#{course_name},
+		course_startdate=#{course_startdate},
+		course_enddate=#{course_enddate}, student_count=#{student_count},
+		max_student=#{max_student}
+		WHERE class_name=#{class_name}
+	</update>
+
+	<!--글 삭제하기 쿼리문 -->
+	<update id="class_delete">
+		DELETE FROM class WHERE
+		class_name=#{class_name}
+	</update>
+
+
+</mapper>

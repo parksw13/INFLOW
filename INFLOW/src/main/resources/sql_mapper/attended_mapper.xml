@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="attended_Bean">
+
+	<!--출석 쿼리문 -->
+	<update id="attend">
+		UPDATE attended SET attended_state=1,
+		attended_date2=#{attended_date2} WHERE student_id=#{student_id} and
+		to_char(attended_date1,'yy/mm/dd')=to_char(sysdate,'yy/mm/dd')
+	</update>
+
+	<!--지각 쿼리문 -->
+	<update id="tardy">
+		UPDATE attended SET attended_state=2,
+		attended_date2=#{attended_date2} WHERE student_id=#{student_id} and
+		to_char(attended_date1,'yy/mm/dd')=to_char(sysdate,'yy/mm/dd')
+	</update>
+
+	<!-- 조퇴신청 쿼리문 -->
+	<update id="early">
+		UPDATE attended SET attended_state=3 WHERE
+		student_id=#{student_id} and class_name=#{class_name} and
+		to_char(attended_date1,'yy/mm/dd')=to_char(sysdate,'yy/mm/dd')
+	</update>
+
+	<!--조퇴신청 승인을 위한 쿼리문 -->
+	<update id="early_signup">
+		UPDATE attended SET attended_state=4
+		WHERE student_id=#{student_id} and class_name=#{class_name} and
+		to_char(attended_date1,'yy/mm/dd')=to_char(sysdate,'yy/mm/dd')
+	</update>
+
+	<update id="update_attend">
+		update attended set attended_state=0,
+		attended_date2='00:00:00', attended_date1=sysdate+1
+		where
+		attended_state is null
+	</update>
+
+	<insert id="insert_attend" parameterType="atbean">
+		INSERT INTO
+		attended(CLASS_NAME, student_id) select class_name, id from users
+		where grade='S' or class_name='admin' and not exists(select * from
+		attended where attended_date1 is null)
+	</insert>
+
+	<select id="list" parameterType="atbean" resultType="atbean">
+		SELECT *
+		FROM attended where to_date(ATTENDED_DATE1,
+		'yy/mm/dd')=to_char(sysdate,'yy/mm/dd')
+	</select>
+
+	<select id="check" parameterType="atbean" resultType="int">
+		SELECT
+		count(*) FROM attended where class_name='admin' and
+		to_date(ATTENDED_DATE1, 'yy/mm/dd')=to_char(sysdate+1,'yy/mm/dd')
+	</select>
+</mapper>

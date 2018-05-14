@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace의 속성값은 bean 클래스 이름을 쓴다.  -->
+<mapper namespace="sr_Bean">
+	<!--글쓰기 쿼리문  -->
+	<insert id="write" parameterType="srbean">
+		INSERT INTO study_resources VALUES(sr_num.nextval, #{sr_title}, #{sr_writer}, #{sr_contents}, sysdate, 0, #{sr_upload})
+	</insert>
+	
+	<!--글목록 쿼리문  -->
+	<select id="boardlist" parameterType="srbean" resultType="srbean">
+		SELECT * FROM study_resources ORDER BY sr_num desc
+	</select>
+	
+	<!--조회수 증가 쿼리문  -->
+	<update id="increaseViewcnt">
+		UPDATE study_resources SET sr_count=sr_count+1 WHERE sr_num=#{sr_num}
+	</update>
+	
+	<!--글 상세보기 쿼리문  -->
+	<select id="view" resultType="srbean">
+		SELECT * FROM study_resources WHERE sr_num=#{sr_num}
+	</select>
+	
+	<!--글 수정하기 쿼리문  -->
+	<update id="modify" >
+		UPDATE study_resources SET sr_writer=#{sr_writer}, sr_title=#{sr_title}, sr_contents=#{sr_contents}
+		WHERE sr_num=#{sr_num}
+	</update>
+	
+	<!--글 삭제하기 쿼리문  -->
+	<update id="delete"  >
+		DELETE FROM study_resources WHERE sr_num=#{sr_num}
+	</update>	
+	
+</mapper>

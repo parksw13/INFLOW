@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace의 속성값은 bean 클래스 이름을 쓴다.  -->
+<mapper namespace="c_Bean">
+	
+	<insert id="write" parameterType="cbean">
+		INSERT INTO calendar
+		VALUES(c_num.nextval, #{c_title}, #{c_contents}, #{c_start_date}, #{c_end_date})
+	</insert>
+
+	<select id="clist" parameterType="cbean" resultType="cbean">
+		SELECT * FROM calendar ORDER BY c_num desc
+	</select>
+
+	<update id="delete"  >
+		delete from calendar where c_num=#{c_num}
+	</update>
+	
+	<select id="view" resultType="cbean">
+      SELECT * FROM calendar WHERE c_num=#{c_num}
+   </select>	
+	
+	 
+
+</mapper>

@@ -1,0 +1,130 @@
+#mask {
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:9000;
+  background-color:#000;
+  display:none;
+}  
+#boxes .window {
+  position:absolute;
+  left:25%;
+  top:0;
+  width:auto;
+  height:200px;
+  display:none;
+  z-index:9999;
+  padding:20px;
+  border-radius: 15px;
+  text-align: center;
+}
+#boxes #dialog {
+  width:50%; 
+  height:auto;
+  padding:10px;
+  background-color:#ffffff;
+  font-family: 'Segoe UI Light', sans-serif;
+  font-size: 15pt;
+}
+
+#j_boxes #dialog {
+ 
+  width:800px; 
+  height:auto;
+  padding:10px;
+  background-color:#ffffff;
+  font-family: 'Segoe UI Light', sans-serif;
+  font-size: 15pt;
+  display: none;
+}
+#j_boxes .window {
+  position:absolute;
+  left:25%;
+ 
+  width:auto;
+  height:200px;
+  display:none;
+  z-index:9999;
+  padding:20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+
+#c_boxes .window {
+position:absolute;
+  left:25%;
+  top:5%;
+  width:50%;
+  height:50%;
+  display:none;
+  z-index:9999;
+  padding:20px;
+  border-radius: 15px;
+  text-align: center;
+}
+#c_boxes #dialog {
+  width:50%; 
+  height:auto;
+  padding:10px;
+  background-color:#ffffff;
+  font-family: 'Segoe UI Light', sans-serif;
+  font-size: 15pt;
+}
+
+.maintext{
+	text-align: center;
+  font-family: "Segoe UI", sans-serif;
+  text-decoration: none;
+}
+body{
+  background: url('bg.jpg');
+}
+#lorem{
+	font-family: "Segoe UI", sans-serif;
+	font-size: 12pt;
+  text-align: left;
+}
+#popupfoot{
+	font-family: "Segoe UI", sans-serif;
+	font-size: 16pt;
+  padding: 10px 20px;
+}
+#popupfoot a{
+	text-decoration: none;
+}
+.agree:hover{
+  background-color: #D1D1D1;
+}
+.popupoption:hover{
+	background-color:#D1D1D1;
+	color: green;
+}
+.popupoption2:hover{
+	
+	color: red;
+}
+
+.off-screen {
+   display: none;
+}
+
+#nav {
+   padding-left: 8%;
+}
+
+#nav a {
+   display: inline-block;
+   padding: 3px 5px;
+   margin-right: 10px;
+   font-family: Tahoma;
+   background: #ccc;
+   color: #000;
+   text-decoration: none;
+}
+
+#nav a.active {
+   background: #333;
+   color: #fff;
+}
+

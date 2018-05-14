@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias alias="usersbean" type="com.TEAM_INFLOW.INFLOW.bean.users_Bean"/>
+		<typeAlias alias="cbean" type="com.TEAM_INFLOW.INFLOW.bean.c_Bean"/>
+		<typeAlias alias="mbean" type="com.TEAM_INFLOW.INFLOW.bean.message_Bean"/>
+		<typeAlias alias="srbean" type="com.TEAM_INFLOW.INFLOW.bean.sr_Bean"/>
+		<typeAlias alias="nbbean" type="com.TEAM_INFLOW.INFLOW.bean.nb_Bean"/>
+		<typeAlias alias="qnabean" type="com.TEAM_INFLOW.INFLOW.bean.qna_Bean"/>
+		<typeAlias alias="sbbean" type="com.TEAM_INFLOW.INFLOW.bean.sb_Bean"/>
+		<typeAlias alias="atbean" type="com.TEAM_INFLOW.INFLOW.bean.attended_Bean"/>
+		<typeAlias alias="replybean" type="com.TEAM_INFLOW.INFLOW.bean.reply_Bean"/>
+		<typeAlias alias="resourcesbean" type="com.TEAM_INFLOW.INFLOW.bean.resources_Bean"/>
+		<typeAlias alias="classbean" type="com.TEAM_INFLOW.INFLOW.bean.class_Bean"/>
+	</typeAliases>
+</configuration>
